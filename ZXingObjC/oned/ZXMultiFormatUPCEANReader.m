@@ -59,6 +59,7 @@
       [self.readers addObject:[[[ZXEAN8Reader alloc] init] autorelease]];
       [self.readers addObject:[[[ZXUPCEReader alloc] init] autorelease]];
     }
+
   }
 
   return self;
@@ -97,6 +98,7 @@
     BOOL canReturnUPCA = hints == nil || [hints numberOfPossibleFormats] == 0 || [hints containsFormat:kBarcodeFormatUPCA];
     if (ean13MayBeUPCA && canReturnUPCA) {
       return [ZXResult resultWithText:[result.text substringFromIndex:1]
+                            extension:result.extension
                              rawBytes:nil
                                length:0
                          resultPoints:result.resultPoints

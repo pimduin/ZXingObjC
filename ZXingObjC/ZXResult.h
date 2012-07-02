@@ -24,6 +24,7 @@
 @interface ZXResult : NSObject
 
 @property (nonatomic, copy,   readonly) NSString * text;
+@property (nonatomic, copy) NSString * extension;
 @property (nonatomic, assign, readonly) unsigned char * rawBytes;
 @property (nonatomic, assign, readonly) int length;
 @property (nonatomic, retain, readonly) NSMutableArray * resultPoints;
@@ -32,7 +33,7 @@
 @property (nonatomic, assign, readonly) long timestamp;
 
 - (id)initWithText:(NSString *)text rawBytes:(unsigned char *)rawBytes length:(unsigned int)length resultPoints:(NSArray *)resultPoints format:(ZXBarcodeFormat)format;
-- (id)initWithText:(NSString *)text rawBytes:(unsigned char *)rawBytes length:(unsigned int)length resultPoints:(NSArray *)resultPoints format:(ZXBarcodeFormat)format timestamp:(long)timestamp;
++ (id)resultWithText:(NSString *)text extension:(NSString *)anExtension rawBytes:(unsigned char *)rawBytes length:(unsigned int)length resultPoints:(NSArray *)resultPoints format:(ZXBarcodeFormat)format;
 + (id)resultWithText:(NSString *)text rawBytes:(unsigned char *)rawBytes length:(unsigned int)length resultPoints:(NSArray *)resultPoints format:(ZXBarcodeFormat)format;
 + (id)resultWithText:(NSString *)text rawBytes:(unsigned char *)rawBytes length:(unsigned int)length resultPoints:(NSArray *)resultPoints format:(ZXBarcodeFormat)format timestamp:(long)timestamp;
 - (void)putMetadata:(ZXResultMetadataType)type value:(id)value;

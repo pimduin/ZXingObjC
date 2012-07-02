@@ -36,7 +36,7 @@ extern const int MIDDLE_PATTERN[];
 extern const int L_PATTERNS[][4];
 extern const int L_AND_G_PATTERNS[][4];
 
-@class ZXDecodeHints, ZXEANManufacturerOrgSupport, ZXResult, ZXUPCEANExtensionSupport;
+@class ZXDecodeHints, ZXEANManufacturerOrgSupport, ZXResult, CMUPCEANExtensionSupport;
 
 @interface ZXUPCEANReader : ZXOneDReader
 

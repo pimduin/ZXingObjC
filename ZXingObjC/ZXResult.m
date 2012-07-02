@@ -31,6 +31,7 @@
 @implementation ZXResult
 
 @synthesize text;
+@synthesize extension;
 @synthesize rawBytes;
 @synthesize length;
 @synthesize resultPoints;
@@ -39,10 +40,14 @@
 @synthesize timestamp;
 
 - (id)initWithText:(NSString *)aText rawBytes:(unsigned char *)aRawBytes length:(unsigned int)aLength resultPoints:(NSArray *)aResultPoints format:(ZXBarcodeFormat)aFormat {
-  return [self initWithText:aText rawBytes:aRawBytes length:aLength resultPoints:aResultPoints format:aFormat timestamp:CFAbsoluteTimeGetCurrent()];
+  return [self initWithText:aText extension:nil rawBytes:aRawBytes length:aLength resultPoints:aResultPoints format:aFormat timestamp:CFAbsoluteTimeGetCurrent()];
 }
 
-- (id)initWithText:(NSString *)aText rawBytes:(unsigned char *)aRawBytes length:(unsigned int)aLength resultPoints:(NSArray *)aResultPoints format:(ZXBarcodeFormat)aFormat timestamp:(long)aTimestamp {
+- (id)initWithText:(NSString *)aText extension:(NSString *)anExtension rawBytes:(unsigned char *)aRawBytes length:(unsigned int)aLength resultPoints:(NSArray *)aResultPoints format:(ZXBarcodeFormat)aFormat {
+    return [self initWithText:aText extension:anExtension rawBytes:aRawBytes length:aLength resultPoints:aResultPoints format:aFormat timestamp:CFAbsoluteTimeGetCurrent()];
+}
+
+- (id)initWithText:(NSString *)aText extension:(NSString *)anExtension rawBytes:(unsigned char *)aRawBytes length:(unsigned int)aLength resultPoints:(NSArray *)aResultPoints format:(ZXBarcodeFormat)aFormat timestamp:(long)aTimestamp {
   if (self = [super init]) {
     self.text = aText;
     if (aRawBytes != NULL && aLength > 0) {
@@ -57,17 +62,22 @@
     self.barcodeFormat = aFormat;
     self.resultMetadata = nil;
     self.timestamp = aTimestamp;
+    self.extension = anExtension;
   }
 
   return self;
 }
 
++ (id)resultWithText:(NSString *)text extension:(NSString *)anExtension rawBytes:(unsigned char *)rawBytes length:(unsigned int)length resultPoints:(NSArray *)resultPoints format:(ZXBarcodeFormat)format {
+    return [[[self alloc] initWithText:text extension:anExtension rawBytes:rawBytes length:length resultPoints:resultPoints format:format] autorelease];
+}
+
 + (id)resultWithText:(NSString *)text rawBytes:(unsigned char *)rawBytes length:(unsigned int)length resultPoints:(NSArray *)resultPoints format:(ZXBarcodeFormat)format {
-  return [[[self alloc] initWithText:text rawBytes:rawBytes length:length resultPoints:resultPoints format:format] autorelease];
+    return [[[self alloc] initWithText:text extension:nil rawBytes:rawBytes length:length resultPoints:resultPoints format:format] autorelease];
 }
 
 + (id)resultWithText:(NSString *)text rawBytes:(unsigned char *)rawBytes length:(unsigned int)length resultPoints:(NSArray *)resultPoints format:(ZXBarcodeFormat)format timestamp:(long)timestamp {
-  return [[[self alloc] initWithText:text rawBytes:rawBytes length:length resultPoints:resultPoints format:format timestamp:timestamp] autorelease];
+    return [[[self alloc] initWithText:text extension:nil rawBytes:rawBytes length:length resultPoints:resultPoints format:format timestamp:timestamp] autorelease];
 }
 
 - (void)dealloc {
@@ -109,7 +119,7 @@
 }
 
 - (NSString *)description {
-  return self.text;
+    return [NSString stringWithFormat:@"Barcode:%@ Extension:%@", [self text], self.extension];
 }
 
 @end

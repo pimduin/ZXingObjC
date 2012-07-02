@@ -22,7 +22,7 @@
 #import "ZXResultPoint.h"
 #import "ZXResultPointCallback.h"
 #import "ZXUPCEANReader.h"
-#import "ZXUPCEANExtensionSupport.h"
+#import "CMUPCEANExtensionSupport.h"
 
 #define MAX_AVG_VARIANCE (int)(PATTERN_MATCH_RESULT_SCALE_FACTOR * 0.48f)
 #define MAX_INDIVIDUAL_VARIANCE (int)(PATTERN_MATCH_RESULT_SCALE_FACTOR * 0.7f)
@@ -84,7 +84,7 @@ const int L_AND_G_PATTERNS[L_AND_G_PATTERNS_LEN][L_AND_G_PATTERNS_SUB_LEN] = {
 @interface ZXUPCEANReader ()
 
 @property (nonatomic, retain) NSMutableString * decodeRowNSMutableString;
-@property (nonatomic, retain) ZXUPCEANExtensionSupport * extensionReader;
+@property (nonatomic, retain) CMUPCEANExtensionSupport * extensionReader;
 @property (nonatomic, retain) ZXEANManufacturerOrgSupport * eanManSupport;
 
 - (BOOL)checkStandardUPCEANChecksum:(NSString *)s;
@@ -100,7 +100,7 @@ const int L_AND_G_PATTERNS[L_AND_G_PATTERNS_LEN][L_AND_G_PATTERNS_SUB_LEN] = {
 - (id)init {
   if (self = [super init]) {
     self.decodeRowNSMutableString = [NSMutableString stringWithCapacity:20];
-    self.extensionReader = [[[ZXUPCEANExtensionSupport alloc] init] autorelease];
+    self.extensionReader = [[[CMUPCEANExtensionSupport alloc] init] autorelease];
     self.eanManSupport = [[[ZXEANManufacturerOrgSupport alloc] init] autorelease];
   }
 
@@ -191,13 +191,17 @@ const int L_AND_G_PATTERNS[L_AND_G_PATTERNS_LEN][L_AND_G_PATTERNS_SUB_LEN] = {
   float left = (float)(NSMaxRange(startGuardRange) + startGuardRange.location) / 2.0f;
   float right = (float)(NSMaxRange(endRange) + endRange.location) / 2.0f;
   ZXBarcodeFormat format = [self barcodeFormat];
+    
+  ZXResult * extensionResult = [extensionReader decodeRow:rowNumber row:row rowOffset:NSMaxRange(endRange) error:error];
+    NSLog(@"extensionResult %@", extensionResult.text);
+    
   ZXResult * decodeResult = [ZXResult resultWithText:resultString
+                                        extension:extensionResult.text
                                             rawBytes:NULL
                                               length:0
                                         resultPoints:[NSArray arrayWithObjects:[[[ZXResultPoint alloc] initWithX:left y:(float)rowNumber] autorelease], [[[ZXResultPoint alloc] initWithX:right y:(float)rowNumber] autorelease], nil]
                                               format:format];
 
-  ZXResult * extensionResult = [extensionReader decodeRow:rowNumber row:row rowOffset:NSMaxRange(endRange) error:error];
   if (extensionResult) {
     [decodeResult putAllMetadata:[extensionResult resultMetadata]];
     [decodeResult addResultPoints:[extensionResult resultPoints]];

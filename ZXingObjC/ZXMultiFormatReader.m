@@ -94,6 +94,7 @@
 
   BOOL tryHarder = hints != nil && hints.tryHarder;
   self.readers = [NSMutableArray array];
+    /*
   if (hints != nil) {
     BOOL addZXOneDReader = [hints containsFormat:kBarcodeFormatUPCA] ||
       [hints containsFormat:kBarcodeFormatUPCE] ||
@@ -141,6 +142,9 @@
       [self.readers addObject:[[[ZXMultiFormatOneDReader alloc] initWithHints:hints] autorelease]];
     }
   }
+     */
+    
+     [self.readers addObject:[[[ZXMultiFormatOneDReader alloc] initWithHints:hints] autorelease]];
 }
 
 - (void)reset {
