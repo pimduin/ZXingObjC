@@ -38,7 +38,7 @@
 
 - (id)initWithHints:(ZXDecodeHints *)hints {
   if (self = [super init]) {
-    BOOL useCode39CheckDigit = hints != nil && hints.assumeCode39CheckDigit;
+   // BOOL useCode39CheckDigit = hints != nil && hints.assumeCode39CheckDigit;
     self.readers = [NSMutableArray array];
     /*
     if (hints != nil) {

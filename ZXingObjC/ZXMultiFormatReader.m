@@ -92,7 +92,7 @@
   [hints release];
   hints = [_hints retain];
 
-  BOOL tryHarder = hints != nil && hints.tryHarder;
+//  BOOL tryHarder = hints != nil && hints.tryHarder;
   self.readers = [NSMutableArray array];
     /*
   if (hints != nil) {
