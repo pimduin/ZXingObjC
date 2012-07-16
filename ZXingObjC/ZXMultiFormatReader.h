@@ -25,8 +25,12 @@
 @class ZXDecodeHints;
 
 @interface ZXMultiFormatReader : NSObject <ZXReader>
+{
+
+}
 
 @property (nonatomic, retain) ZXDecodeHints * hints;
+
 
 + (id)reader;
 - (ZXResult *)decodeWithState:(ZXBinaryBitmap *)image error:(NSError **)error;

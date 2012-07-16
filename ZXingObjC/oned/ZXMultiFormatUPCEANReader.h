@@ -25,6 +25,9 @@
 @class ZXDecodeHints;
 
 @interface ZXMultiFormatUPCEANReader : ZXOneDReader
+{
+
+}
 
 - (id)initWithHints:(ZXDecodeHints *)hints;
 

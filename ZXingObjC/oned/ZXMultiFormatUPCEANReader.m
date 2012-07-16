@@ -23,6 +23,7 @@
 #import "ZXResult.h"
 #import "ZXUPCAReader.h"
 #import "ZXUPCEReader.h"
+#import "ZXResultPoint.h"
 
 @interface ZXMultiFormatUPCEANReader ()
 
@@ -107,8 +108,10 @@
     return result;
   }
 
-  if (error) *error = NotFoundErrorInstance();
-  return nil;
+  if (error)
+      *error = NotFoundErrorInstance();
+    
+    return nil;
 }
 
 - (void)reset {

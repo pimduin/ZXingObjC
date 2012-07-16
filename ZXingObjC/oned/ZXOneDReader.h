@@ -27,6 +27,9 @@ extern int const PATTERN_MATCH_RESULT_SCALE_FACTOR;
 @class ZXBitArray, ZXDecodeHints, ZXResult;
 
 @interface ZXOneDReader : NSObject <ZXReader>
+{
+
+}
 
 + (BOOL)recordPattern:(ZXBitArray *)row start:(int)start counters:(int[])counters countersSize:(int)countersSize;
 + (BOOL)recordPatternInReverse:(ZXBitArray *)row start:(int)start counters:(int[])counters countersSize:(int)countersSize;

@@ -31,6 +31,8 @@ int const PATTERN_MATCH_RESULT_SCALE_FACTOR = 1 << INTEGER_MATH_SHIFT;
 
 @end
 
+
+
 @implementation ZXOneDReader
 
 - (ZXResult *)decode:(ZXBinaryBitmap *)image error:(NSError**)error {

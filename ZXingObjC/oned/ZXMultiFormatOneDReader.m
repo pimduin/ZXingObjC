@@ -25,6 +25,7 @@
 #import "ZXMultiFormatUPCEANReader.h"
 #import "ZXRSS14Reader.h"
 #import "ZXRSSExpandedReader.h"
+#import "ZXResult.h"
 
 @interface ZXMultiFormatOneDReader ()
 
@@ -38,9 +39,9 @@
 
 - (id)initWithHints:(ZXDecodeHints *)hints {
   if (self = [super init]) {
-   // BOOL useCode39CheckDigit = hints != nil && hints.assumeCode39CheckDigit;
+    BOOL useCode39CheckDigit = hints != nil && hints.assumeCode39CheckDigit;
     self.readers = [NSMutableArray array];
-    /*
+    
     if (hints != nil) {
       if ([hints containsFormat:kBarcodeFormatEan13] ||
           [hints containsFormat:kBarcodeFormatUPCA] ||
@@ -77,10 +78,10 @@
         [self.readers addObject:[[[ZXRSSExpandedReader alloc] init] autorelease]];
       }
     }
-*/
+
     if ([self.readers count] == 0) {
       [self.readers addObject:[[[ZXMultiFormatUPCEANReader alloc] initWithHints:hints] autorelease]];
-        /*
+        
       [self.readers addObject:[[[ZXCode39Reader alloc] init] autorelease]];
       [self.readers addObject:[[[ZXCodaBarReader alloc] init] autorelease]];
       [self.readers addObject:[[[ZXCode93Reader alloc] init] autorelease]];
@@ -88,7 +89,7 @@
       [self.readers addObject:[[[ZXITFReader alloc] init] autorelease]];
       [self.readers addObject:[[[ZXRSS14Reader alloc] init] autorelease]];
       [self.readers addObject:[[[ZXRSSExpandedReader alloc] init] autorelease]];
-         */
+         
     }
   }
 
@@ -107,7 +108,7 @@
     if (result) {
       return result;
     }
-  }
+}
 
   if (error) *error = NotFoundErrorInstance();
   return nil;

@@ -148,7 +148,7 @@ const int L_AND_G_PATTERNS[L_AND_G_PATTERNS_LEN][L_AND_G_PATTERNS_SUB_LEN] = {
  * found. This allows this to be computed once and reused across many implementations.
  */
 - (ZXResult *)decodeRow:(int)rowNumber row:(ZXBitArray *)row startGuardRange:(NSRange)startGuardRange hints:(ZXDecodeHints *)hints error:(NSError**)error {
-  id<ZXResultPointCallback> resultPointCallback = hints == nil ? nil : hints.resultPointCallback;
+    id<ZXResultPointCallback> resultPointCallback = hints == nil ? nil : hints.resultPointCallback;
 
   if (resultPointCallback != nil) {
     [resultPointCallback foundPossibleResultPoint:[[[ZXResultPoint alloc] initWithX:(startGuardRange.location + NSMaxRange(startGuardRange)) / 2.0f y:rowNumber] autorelease]];
@@ -193,7 +193,7 @@ const int L_AND_G_PATTERNS[L_AND_G_PATTERNS_LEN][L_AND_G_PATTERNS_SUB_LEN] = {
   ZXBarcodeFormat format = [self barcodeFormat];
     
   ZXResult * extensionResult = [extensionReader decodeRow:rowNumber row:row rowOffset:NSMaxRange(endRange) error:error];
-    NSLog(@"extensionResult %@", extensionResult.text);
+  NSLog(@"extensionResult %@", extensionResult.text);
     
   ZXResult * decodeResult = [ZXResult resultWithText:resultString
                                         extension:extensionResult.text

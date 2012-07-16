@@ -92,9 +92,9 @@
   [hints release];
   hints = [_hints retain];
 
-//  BOOL tryHarder = hints != nil && hints.tryHarder;
+  BOOL tryHarder = hints != nil && hints.tryHarder;
   self.readers = [NSMutableArray array];
-    /*
+    
   if (hints != nil) {
     BOOL addZXOneDReader = [hints containsFormat:kBarcodeFormatUPCA] ||
       [hints containsFormat:kBarcodeFormatUPCE] ||
@@ -142,9 +142,7 @@
       [self.readers addObject:[[[ZXMultiFormatOneDReader alloc] initWithHints:hints] autorelease]];
     }
   }
-     */
-    
-     [self.readers addObject:[[[ZXMultiFormatOneDReader alloc] initWithHints:hints] autorelease]];
+     
 }
 
 - (void)reset {
@@ -161,7 +159,7 @@
       ZXResult* result = [reader decode:image hints:self.hints error:nil];
       if (result) {
         return result;
-      }
+      } 
     }
   }
 
