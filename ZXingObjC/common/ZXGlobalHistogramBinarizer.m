@@ -74,9 +74,14 @@ int const LUMINANCE_BUCKETS = 1 << LUMINANCE_BITS;
   unsigned char * localLuminances = [source row:y row:self.luminances];
   NSMutableArray * localBuckets = [NSMutableArray arrayWithArray:buckets];
   for (int x = 0; x < width; x++) {
+      id pool = [NSAutoreleasePool new];
+
     int pixel = localLuminances[x] & 0xff;
-    [localBuckets replaceObjectAtIndex:pixel >> LUMINANCE_SHIFT
-                            withObject:[NSNumber numberWithInt:[[localBuckets objectAtIndex:pixel >> LUMINANCE_SHIFT] intValue] + 1]];
+    NSNumber * numberToIncrease = [localBuckets objectAtIndex:pixel >> LUMINANCE_SHIFT];
+    NSNumber * increasedNumber = [NSNumber numberWithInt:[numberToIncrease intValue] + 1];
+     //fa NSLog(@"increasedNumber %i", [increasedNumber intValue]);
+    [localBuckets replaceObjectAtIndex:pixel >> LUMINANCE_SHIFT withObject:increasedNumber];
+      [pool drain];
   }
   int blackPoint = [self estimateBlackPoint:localBuckets];
   if (blackPoint == -1) {
